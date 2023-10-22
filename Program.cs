@@ -26,25 +26,18 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Conexão com o Banco de dados
-var connectionString = builder.Configuration.
-        GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString)
-);
 
 // CONEXAO COM O BANCO DE DADOS - NEW
 if (builder.Configuration["Enviroment:Start"] == "PROD")
 {
     builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("secrets.json");
 
-    var connectionStrings = builder.Configuration.GetConnectionString("ProdConnection");
+    var connectionString = builder.Configuration.GetConnectionString("ProdConnection");
     builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 }
 else
 {
-    var connectionStrings = builder.Configuration.GetConnectionString("DefaultConnection");
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 }
 
