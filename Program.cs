@@ -80,11 +80,10 @@ using (var scope = app.Services.CreateAsyncScope())
 app.UseDeveloperExceptionPage();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+ app.UseSwagger();
+ app.UseSwaggerUI();
+
 
 // Swagger como Página Inicial (Home) na Nuvem
 if (app.Environment.IsProduction())
